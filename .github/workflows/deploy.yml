@@ -1,24 +1,28 @@
-name: Build and deploy to GitHub Pages
+name: Node.js CI
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
 
 jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
+  build:
+    runs-on: self-hosted
+
+    strategy:
+      matrix:
+        node-version: [14.x]  # Перелік версій Node.js для тестування
+
     steps:
-      - name: Checkout 🛎️
-        uses: actions/checkout@v2.3.1
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-      - name: Install, lint, build 🔧
-        run: |
-          npm install
-          npm run lint:js
-          npm run build
-
-      - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@4.1.0
+      - name: Install Node.js
+        uses: actions/setup-node@v1
         with:
-          branch: gh-pages
-          folder: build
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install deps
+        run: 
+          npm install
+ 
