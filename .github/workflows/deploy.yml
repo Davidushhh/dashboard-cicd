@@ -34,7 +34,3 @@ jobs:
  
       - name: pm2 save
         run: pm2 save
- 
-      - name: service nginx restart
-        run: systemctl restart nginx
- 
