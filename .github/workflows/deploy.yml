@@ -36,5 +36,5 @@ jobs:
         run: pm2 save
  
       - name: service nginx restart
-        run: systemctl restart nginx
+        run: sudo systemctl restart nginx
  
